@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8000:80" # Puerto del contenedor : Puerto local
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=bd_invertec
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: bd_invertec
+      MYSQL_ROOT_PASSWORD: 
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
